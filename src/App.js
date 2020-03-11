@@ -11,6 +11,19 @@ class App extends React.Component {
 
   url = "http://127.0.0.1:8000/";
 
+  ask_call = (url, data) =>
+    axios
+      .post(this.url + url, data, {
+        headers: { Authorization: "Token " + this.state.token }
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          ...this.state,
+          results: [...this.state.results, response.data]
+        });
+      });
+
   getToken = () =>
     axios
       .post(this.url + "api-token-auth/", {
@@ -26,7 +39,7 @@ class App extends React.Component {
     axios
       .post(
         this.url + "timetable/create_timetable_records/",
-        { key: "name", period: [100223, 100231], name: "asd", note: "test" },
+        { key: "name", period: [90023, 101231], name: "asd", note: "test" },
         {
           headers: { Authorization: "Token " + this.state.token }
         }
@@ -43,7 +56,7 @@ class App extends React.Component {
     axios
       .post(
         this.url + "timetable/get_timetable/",
-        { key: "name", period: [100223, 100231] },
+        { key: "name", period: [1000, 200000] },
         {
           headers: { Authorization: "Token " + this.state.token }
         }
@@ -60,7 +73,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <button onClick={this.getToken}>auth</button>
+        <button onClick={this.createTimetableRecords}>create timetable</button>
         <button onClick={this.askForTimetable}>ask for timetable</button>
+        <button
+          onClick={() =>
+            this.ask_call("template_app/functionality_a/", { arg1: 1, arg2: 2 })
+          }
+        >
+          template_App_fuinca
+        </button>
         <p>token: {this.state.token}</p>
         {this.state.results.map((r, i) => (
           <div key={i} style={{ width: "100%", height: 200 }}>
