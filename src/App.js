@@ -87,7 +87,7 @@ class App extends React.Component {
         </button>
         <p>token: {this.state.token}</p>
         {this.state.results.map((r, i) => (
-          <div key={i} style={{ width: "100%", height: 200 }}>
+          <div key={i} style={{ width: "100%", height: 300 }}>
             <ReactJson src={r} />
           </div>
         ))}
