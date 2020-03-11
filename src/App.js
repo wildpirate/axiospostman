@@ -22,6 +22,23 @@ class App extends React.Component {
       })
       .catch(e => alert(e));
 
+  createTimetableRecords = () =>
+    axios
+      .post(
+        this.url + "timetable/create_timetable_records/",
+        { key: "name", period: [100223, 100231], name: "asd", note: "test" },
+        {
+          headers: { Authorization: "Token " + this.state.token }
+        }
+      )
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          ...this.state,
+          results: [...this.state.results, response.data]
+        });
+      });
+
   askForTimetable = () =>
     axios
       .post(
