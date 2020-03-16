@@ -23,6 +23,34 @@ class App extends React.Component {
           results: [...this.state.results, response.data]
         });
       });
+  postA = () =>
+    axios
+      .post(
+        this.url + "template_app/api/a/",
+        { name: "asd" },
+        {
+          headers: { Authorization: "Token " + this.state.token }
+        }
+      )
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          ...this.state,
+          results: [...this.state.results, response.data]
+        });
+      });
+  getA = () =>
+    axios
+      .get(this.url + "template_app/api/a/", {
+        headers: { Authorization: "Token " + this.state.token }
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          ...this.state,
+          results: [...this.state.results, response.data]
+        });
+      });
 
   getToken = () =>
     axios
@@ -82,6 +110,8 @@ class App extends React.Component {
         >
           template_App_fuinca
         </button>
+        <button onClick={this.getA}>get As</button>
+        <button onClick={this.postA}>post As</button>
         <p>token: {this.state.token}</p>
         {this.state.results.map((r, i) => (
           <div key={i} style={{ width: "100%", height: 200 }}>
